@@ -38,7 +38,7 @@ RUN echo y | android update sdk --no-ui --all --filter \
 # 安装 gradle
 RUN curl https://get.sdkman.io | bash && \ 
     echo "source /root/.sdkman/bin/sdkman-init.sh\n\
-        echo n | sdk install gradle 3.2.1\n\
+        echo Y | sdk install gradle 3.2.1\n\
         echo n | sdk install gradle 3.2\n\
         echo n | sdk install gradle 3.1\n\
         echo n | sdk install gradle 3.0\n\
