@@ -36,33 +36,38 @@ RUN echo y | android update sdk --no-ui --all --filter \
   build-tools-25.0.0,build-tools-24.0.3,build-tools-24.0.2,build-tools-24.0.1,build-tools-24.0.0,build-tools-23.0.3,build-tools-23.0.2,build-tools-23.0.1,build-tools-22.0.1,build-tools-21.1.2,build-tools-20.0.0,build-tools-19.1.0,android-25,android-24,android-23,android-22,android-21,android-20,android-19,android-17,android-15,addon-google_apis-google-25,addon-google_apis-google-24,addon-google_apis-google-23,addon-google_apis-google-22,addon-google_apis-google-21,addon-google_apis-google-20,addon-google_apis-google-19,addon-google_apis-google-17,addon-google_apis-google-15,platform-tools,extra-android-m2repository,extra-android-support,extra-google-google_play_services,extra-google-m2repository
 
 # 安装 gradle
-RUN curl https://get.sdkman.io | bash && \
-        echo n | sdk install gradle 1.5 && \
-        echo n | sdk install gradle 1.6 && \
-        echo n | sdk install gradle 1.7 && \
-        echo n | sdk install gradle 1.8 && \
-        echo n | sdk install gradle 1.9 && \
-        echo n | sdk install gradle 1.10 && \
-        echo n | sdk install gradle 1.11 && \
-        echo n | sdk install gradle 1.12 && \
-        echo n | sdk install gradle 2.0 && \
-        echo n | sdk install gradle 2.1 && \
-        echo n | sdk install gradle 2.2 && \
-        echo n | sdk install gradle 2.2.1 && \
-        echo n | sdk install gradle 2.3 && \
-        echo n | sdk install gradle 2.4 && \
-        echo n | sdk install gradle 2.5 && \
-        echo n | sdk install gradle 2.6 && \
-        echo n | sdk install gradle 2.7 && \
-        echo n | sdk install gradle 2.8 && \
-        echo n | sdk install gradle 2.9 && \
-        echo n | sdk install gradle 2.10 && \
-        echo n | sdk install gradle 2.11 && \
-        echo n | sdk install gradle 2.12 && \
-        echo n | sdk install gradle 2.13 && \
-        echo n | sdk install gradle 2.14 && \
-        echo n | sdk install gradle 2.14.1 && \
-        echo n | sdk install gradle 3.0 && \
-        echo n | sdk install gradle 3.1 && \
-        echo n | sdk install gradle 3.2
+RUN curl https://get.sdkman.io | bash && \ 
+    echo "source /root/.sdkman/bin/sdkman-init.sh\n\
+        echo n | sdk install gradle 3.2.1\n\
+        echo n | sdk install gradle 3.2\n\
+        echo n | sdk install gradle 3.1\n\
+        echo n | sdk install gradle 3.0\n\
+        echo n | sdk install gradle 2.14.1\n\
+        echo n | sdk install gradle 2.14\n\
+        echo n | sdk install gradle 2.13\n\
+        echo n | sdk install gradle 2.12\n\
+        echo n | sdk install gradle 2.11\n\
+        echo n | sdk install gradle 2.10\n\
+        echo n | sdk install gradle 2.9\n\
+        echo n | sdk install gradle 2.8\n\
+        echo n | sdk install gradle 2.7\n\
+        echo n | sdk install gradle 2.6\n\
+        echo n | sdk install gradle 2.5\n\
+        echo n | sdk install gradle 2.4\n\
+        echo n | sdk install gradle 2.3\n\
+        echo n | sdk install gradle 2.2.1\n\
+        echo n | sdk install gradle 2.2\n\
+        echo n | sdk install gradle 2.1\n\
+        echo n | sdk install gradle 2.0\n\
+        echo n | sdk install gradle 1.12\n\
+        echo n | sdk install gradle 1.11\n\
+        echo n | sdk install gradle 1.10\n\
+        echo n | sdk install gradle 1.9\n\
+        echo n | sdk install gradle 1.8\n\
+        echo n | sdk install gradle 1.7\n\
+        echo n | sdk install gradle 1.6\n\
+        echo n | sdk install gradle 1.5\n" \
+        > /root/.sdkman/bin/install && \
+    bash /root/.sdkman/bin/install && \
+    rm -f /root/.sdkman/bin/install
 
