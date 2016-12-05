@@ -50,6 +50,6 @@ COPY gradle/ /opt/
 
 RUN cd /opt && \
     chmod +x install.sh gradlew && \
-    bash ./install.sh 3.2.1 3.2 3.1 3.0 2.14.1 2.14 2.13 2.12 2.11 2.10 2.9 2.8 2.7 2.6 2.5 2.4 2.3 2.2.1 2.2 2.1 2.0 && \
-    rm -rf gradle/ install.sh gradlew
+    bash ./install.sh 3.2.1 3.2 3.1 3.0 2.14.1 2.14 2.13 2.12 2.11 2.10 2.9 2.8 2.7 2.6 2.5 2.4 2.3 2.2.1 2.2 2.1 2.0
+#    rm -rf gradle/ install.sh gradlew
 
