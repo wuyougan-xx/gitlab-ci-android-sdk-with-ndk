@@ -59,5 +59,5 @@ RUN cd /opt && \
     chmod +x gradlew && \
     bash ./gradle_install.sh 3.2.1 3.2 3.1 3.0 2.14.1 2.14 2.13 2.12 2.11 2.10 2.9 2.8 2.7 2.6 2.5 2.4 2.3 2.2.1 2.2 2.1 2.0 && \
     bash ./gradle_plugin.sh 2.2.2 2.2.1 2.2.0 2.1.3 2.1.2 2.1.0 2.0.0 1.5.0 1.3.1 1.3.0 1.2.3 1.2.2 1.2.1 1.2.0 1.1.3 1.1.2 1.1.1 1.1.0 1.0.1 1.0.0 && \
-    rm -rf gradle_install.sh gradle_plugin.sh gradlew
+    rm -rf gradle_install.sh gradle_plugin.sh build.gradle gradlew gradle/wrapper/gradle-wrapper.{jar,properties}
 
