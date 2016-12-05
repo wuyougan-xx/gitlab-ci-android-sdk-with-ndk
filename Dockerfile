@@ -1,25 +1,25 @@
-FROM ubuntu:14.04
+FROM ubuntu:15.04
 MAINTAINER yewenju <wuyougan@163.com>
 
-ENV ANDROID_SDK_HOME /opt/android-sdk-linux
-ENV ANDROID_NDK_HOME /opt/android-ndk-r13b
+ENV ANDROID_HOME /opt/android-sdk-linux
+ENV ANDROID_NDK /opt/android-ndk-r13b
 ENV GRADLE_USER_HOME /opt/gradle
 
 # 更换 Ubuntu 镜像更新地址
-RUN echo "deb http://mirrors.163.com/ubuntu/ trusty main restricted universe multiverse\n\
-deb http://mirrors.163.com/ubuntu/ trusty-security main restricted universe multiverse\n\
-deb http://mirrors.163.com/ubuntu/ trusty-updates main restricted universe multiverse\n\
-deb http://mirrors.163.com/ubuntu/ trusty-proposed main restricted universe multiverse\n\
-deb http://mirrors.163.com/ubuntu/ trusty-backports main restricted universe multiverse\n\
-deb-src http://mirrors.163.com/ubuntu/ trusty main restricted universe multiverse\n\
-deb-src http://mirrors.163.com/ubuntu/ trusty-security main restricted universe multiverse\n\
-deb-src http://mirrors.163.com/ubuntu/ trusty-updates main restricted universe multiverse\n\
-deb-src http://mirrors.163.com/ubuntu/ trusty-proposed main restricted universe multiverse\n\
-deb-src http://mirrors.163.com/ubuntu/ trusty-backports main restricted universe multiverse" > /etc/apt/sources.list
+#RUN echo "deb http://mirrors.163.com/ubuntu/ trusty main restricted universe multiverse\n\
+#deb http://mirrors.163.com/ubuntu/ trusty-security main restricted universe multiverse\n\
+#deb http://mirrors.163.com/ubuntu/ trusty-updates main restricted universe multiverse\n\
+#deb http://mirrors.163.com/ubuntu/ trusty-proposed main restricted universe multiverse\n\
+#deb http://mirrors.163.com/ubuntu/ trusty-backports main restricted universe multiverse\n\
+#deb-src http://mirrors.163.com/ubuntu/ trusty main restricted universe multiverse\n\
+#deb-src http://mirrors.163.com/ubuntu/ trusty-security main restricted universe multiverse\n\
+#deb-src http://mirrors.163.com/ubuntu/ trusty-updates main restricted universe multiverse\n\
+#deb-src http://mirrors.163.com/ubuntu/ trusty-proposed main restricted universe multiverse\n\
+#deb-src http://mirrors.163.com/ubuntu/ trusty-backports main restricted universe multiverse" > /etc/apt/sources.list
 
 # 安装基础包
 RUN apt-get update -qq && \
-    DEBIAN_FRONTEND=noninteractive apt-get install -y curl wget unzip openjdk-7-jdk libc6-i386 lib32stdc++6 lib32gcc1 lib32ncurses5 lib32z1 && \
+    DEBIAN_FRONTEND=noninteractive apt-get install -y curl wget unzip openjdk-7-jdk openjdk-8-jdk libc6-i386 lib32stdc++6 lib32gcc1 lib32ncurses5 lib32z1 && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # 安装 SDK
@@ -30,7 +30,14 @@ RUN cd /opt && \
     unzip android-ndk.zip && \
     rm -f android-sdk.tgz android-ndk.zip
 
-ENV PATH ${PATH}:${ANDROID_SDK_HOME}/tools:${ANDROID_SDK_HOME}/platform-tools:${ANDROID_NDK_HOME}
+# 安装 CMake
+RUN mkdir -p ${ANDROID_HOME}/cmake && \
+    cd ${ANDROID_HOME}/cmake && \
+    curl -s https://dl.google.com/android/repository/cmake-3.6.3155560-linux-x86_64.zip > cmake.zip && \
+    unzip cmake.zip && \
+    rm -f cmake.zip
+
+ENV PATH ${PATH}:${ANDROID_HOME}/tools:${ANDROID_HOME}/platform-tools:${ANDROID_NDK}
 
 # 更新 SDK
 RUN echo y | android update sdk --no-ui --all --filter \
@@ -49,7 +56,8 @@ RUN echo y | android update sdk --no-ui --all --filter \
 COPY gradle/ /opt/
 
 RUN cd /opt && \
-    chmod +x install.sh gradlew && \
-    bash ./install.sh 3.2.1 3.2 3.1 3.0 2.14.1 2.14 2.13 2.12 2.11 2.10 2.9 2.8 2.7 2.6 2.5 2.4 2.3 2.2.1 2.2 2.1 2.0
-#    rm -rf gradle/ install.sh gradlew
+    chmod +x gradlew && \
+    bash ./gradle_install.sh 3.2.1 3.2 3.1 3.0 2.14.1 2.14 2.13 2.12 2.11 2.10 2.9 2.8 2.7 2.6 2.5 2.4 2.3 2.2.1 2.2 2.1 2.0 && \
+    bash ./gradle_plugin.sh 2.2.2 2.2.1 2.2.0 2.1.3 2.1.2 2.1.0 2.0.0 1.5.0 1.3.1 1.3.0 1.2.3 1.2.2 1.2.1 1.2.0 1.1.3 1.1.2 1.1.1 1.1.0 1.0.1 1.0.0 && \
+    rm -rf gradle_install.sh gradle_plugin.sh gradlew
 
