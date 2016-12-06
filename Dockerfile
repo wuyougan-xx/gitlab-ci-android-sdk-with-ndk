@@ -1,8 +1,8 @@
-FROM ubuntu:15.04
+FROM ubuntu:16.04
 MAINTAINER yewenju <wuyougan@163.com>
 
 ENV ANDROID_HOME /opt/android-sdk-linux
-ENV ANDROID_NDK /opt/android-ndk-r13b
+ENV ANDROID_NDK_HOME /opt/android-ndk-r13b
 ENV GRADLE_USER_HOME /opt/gradle
 
 # 更换 Ubuntu 镜像更新地址
@@ -37,7 +37,7 @@ RUN mkdir -p ${ANDROID_HOME}/cmake && \
     unzip cmake.zip && \
     rm -f cmake.zip
 
-ENV PATH ${PATH}:${ANDROID_HOME}/tools:${ANDROID_HOME}/platform-tools:${ANDROID_NDK}
+ENV PATH ${PATH}:${ANDROID_HOME}/tools:${ANDROID_HOME}/platform-tools:${ANDROID_NDK_HOME}
 
 # 更新 SDK
 RUN echo y | android update sdk --no-ui --all --filter \
