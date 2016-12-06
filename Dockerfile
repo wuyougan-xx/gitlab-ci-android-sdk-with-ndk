@@ -1,4 +1,4 @@
-FROM ubuntu:16.04
+FROM ubuntu:15.04
 MAINTAINER yewenju <wuyougan@163.com>
 
 ENV ANDROID_HOME /opt/android-sdk-linux
